@@ -22,12 +22,13 @@ jobs:
 
     Build-And-Push:
         runs-on: ubuntu-latest
+        needs: Unit-Test
         steps:
             - name: Clone Repo
               uses: actions/checkout@v6
 
             - name: build docker image
-              run: docker build talel12/api-session15 .
+              run: docker build -t talel12/api-session15 .
 
             - name: check image
               run: docker images
