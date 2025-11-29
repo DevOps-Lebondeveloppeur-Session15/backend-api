@@ -38,6 +38,5 @@ services:
 volumes:
   mongo-volume:
 
-
 networks:
   network1:
