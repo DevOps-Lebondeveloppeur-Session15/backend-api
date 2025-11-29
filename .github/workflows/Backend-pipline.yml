@@ -39,4 +39,16 @@ jobs:
             - name: push image to dockerhub
               run: docker push talel12/api-session15
 
-    # Deployment
+    Deployment:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Connect Via SSH and Deploy
+              uses: appleboy/ssh-action@v1
+              with:
+                host: ${{ secrets.VPS_HOST }}
+                username: ${{ secrets.VPS_USERNAME }}
+                password: ${{ secrets.VPS_PASSWORD }}
+                script: |
+                    whoami
+                    hgjhbhjb
+                    ls -al
