@@ -9,7 +9,16 @@ jobs:
     Unit-Test:
         runs-on: ubuntu-latest
         steps:
-            - run: node -v
+            - name: Clone Repo
+              uses: actions/checkout@v6
+            
+            - name: Install Dep
+              run: npm i
+
+            - name: run unit Test
+              run: npm run test
+
+            
 
     # Build And Push
 
