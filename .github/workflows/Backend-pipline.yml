@@ -30,8 +30,13 @@ jobs:
             - name: build docker image
               run: docker build -t talel12/api-session15 .
 
-            - name: check image
-              run: docker images
-
+            - name: Login to Docker Hub
+              uses: docker/login-action@v3
+              with:
+                    username: ${{ vars.DOCKERHUB_USERNAME }}
+                    password: ${{ secrets.DOCKERHUB_TOKEN }}
+            
+            - name: push image to dockerhub
+              run: docker push talel12/api-session15
 
     # Deployment
