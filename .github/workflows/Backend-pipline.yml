@@ -30,19 +30,15 @@ jobs:
         steps:      
           - name: Checkout Code
             uses: actions/checkout@v4
-
-          
-          - name: Run Trivy Docker image vulnerability scan
-            run: docker build -t ${{ env.BOCKER_IMAGE }} .
           
           - name: Run Trivy vulnerability scanner
             uses: aquasecurity/trivy-action@0.28.0
             with:
-              image-ref: ${{ env.BOCKER_IMAGE }}
+              scan-type: 'fs'
+              scan-ref: '.'
               format: 'table'
               exit-code: '1'
               ignore-unfixed: true
-              vuln-type: 'os,library'
               severity: 'CRITICAL,HIGH'
 
     # Build-And-Push:
