@@ -47,7 +47,7 @@ jobs:
                 ls -al
 
           - name: Run Trivy Files vulnerability scan
-            run: trivy fs --security-checks vuln,secret,misconfig .
+            run: trivy fs --security-checks vuln,secret,config .
 
 
           # - name: Run Trivy Docker image vulnerability scan
