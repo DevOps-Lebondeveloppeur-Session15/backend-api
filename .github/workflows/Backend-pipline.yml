@@ -31,20 +31,19 @@ jobs:
           - name: Checkout Code
             uses: actions/checkout@v4
 
-          - name: Install dependencies
-            run: sudo apt-get update && sudo apt-get install -y curl
-
-          - name: Download and install Trivy
-            run: |
-              curl -sSL https://github.com/aquasecurity/trivy/releases/download/v0.29.0/trivy_0.29.0_Linux-64bit.tar.gz -o trivy.tar.gz
-              tar xzvf trivy.tar.gz
-              sudo mv trivy /usr/local/bin/
-              trivy --version
           
           - name: Run Trivy Docker image vulnerability scan
-            run: |
-              docker build -t ${{ env.BOCKER_IMAGE }} .
-              trivy image ${{ env.BOCKER_IMAGE }}
+            run: docker build -t ${{ env.BOCKER_IMAGE }} .
+          
+          - name: Run Trivy vulnerability scanner
+            uses: aquasecurity/trivy-action@0.28.0
+            with:
+              image-ref: ${{ env.BOCKER_IMAGE }}
+              format: 'table'
+              exit-code: '1'
+              ignore-unfixed: true
+              vuln-type: 'os,library'
+              severity: 'CRITICAL,HIGH'
 
     # Build-And-Push:
     #     runs-on: ubuntu-latest
